@@ -21,6 +21,9 @@ An AI-powered, adaptive traffic signal control system that uses computer vision 
 * **📡 Instant Updates:** Uses Server-Sent Events (SSE) to stream data from the backend to the UI in real-time.
 
 ---
+Presentation of Our Project: ![image alt](https://github.com/Jotheeswaranv/An-AI-Driven-Intelligent-Traffic-Signal-Management-System-Using-Deep-Reinforcement-Learning-/blob/769554c9f21c31939cf4fbc0d11a34231dfe3a7c/presentation%20for%20the%20project.pdf)
+
+Our Conference: ![iamge alt](https://github.com/Jotheeswaranv/An-AI-Driven-Intelligent-Traffic-Signal-Management-System-Using-Deep-Reinforcement-Learning-/blob/769554c9f21c31939cf4fbc0d11a34231dfe3a7c/presentation%20for%20the%20project.pdf)
 
 ## 📁 Project Structure
 

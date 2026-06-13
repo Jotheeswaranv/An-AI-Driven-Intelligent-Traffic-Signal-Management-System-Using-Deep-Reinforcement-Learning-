@@ -1,0 +1,23 @@
+# Ignore model weights
+*.pt
+*.pth
+*.onnx
+
+# Ignore large datasets or logs
+data/
+logs/
+venv/
+.venv/
+*.pt
+*.pth
+*.zip
+*.csv
+runs/
+__pycache__/
+
+venv/
+__pycache__/
+*.pyc
+
+app/static/uploads/
+*.mp4

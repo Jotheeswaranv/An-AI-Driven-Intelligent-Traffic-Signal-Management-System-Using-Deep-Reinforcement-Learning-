@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ITMS{% endblock %} - Intelligent Traffic Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --purple: #6C3FF5;
+            --orange: #F5820D;
+            --dark-navy: #0E1A3A;
+            --navy: #14274E;
+            --green-signal: #2ECC71;
+            --red-signal: #E74C3C;
+            --amber-signal: #F39C12;
+            --text-light: #ECF0F1;
+            --card-bg: rgba(255,255,255,0.07);
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--dark-navy);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+        .navbar {
+            background: rgba(14,26,58,0.95);
+            backdrop-filter: blur(10px);
+            padding: 0 2rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar-brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 2px;
+        }
+        .navbar-title {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .navbar-actions { display: flex; align-items: center; gap: 1rem; }
+        .btn-logout {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 6px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-logout:hover { background: rgba(255,255,255,0.15); color: white; }
+        .flash-container { padding: 0.5rem 1.5rem; }
+        .alert {
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        .alert-danger { background: rgba(231,76,60,0.2); border: 1px solid rgba(231,76,60,0.4); color: #ff6b6b; }
+        .alert-success { background: rgba(46,204,113,0.2); border: 1px solid rgba(46,204,113,0.4); color: #2ecc71; }
+        {% block extra_styles %}{% endblock %}
+    </style>
+</head>
+<body>
+    {% if current_user.is_authenticated %}
+    <nav class="navbar">
+        <span class="navbar-brand">ITMS</span>
+        <span class="navbar-title">Intelligent Traffic Management System</span>
+        <div class="navbar-actions">
+            <a href="{{ url_for('auth.logout') }}" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </nav>
+    {% endif %}
+
+    <div class="flash-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+    </div>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

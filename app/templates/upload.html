@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% block title %}Upload Videos{% endblock %}
+
+{% block extra_styles %}
+.upload-page {
+    min-height: calc(100vh - 56px);
+    background: linear-gradient(135deg, #0A1929 0%, #12213D 50%, #0A1929 100%);
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-header {
+    width: 100%;
+    max-width: 860px;
+    margin-bottom: 1.5rem;
+}
+
+.upload-header-icon {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, #2563EB, #16A34A);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1rem;
+    box-shadow: 0 10px 28px rgba(37,99,235,0.35);
+}
+
+.upload-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 0.4rem;
+}
+
+.upload-header p {
+    color: rgba(255,255,255,0.6);
+    font-size: 1rem;
+}
+
+.upload-form {
+    width: 100%;
+    max-width: 860px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 0.5rem 1.5rem;
+}
+
+.lane-row {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    gap: 1.2rem;
+    transition: background 0.2s;
+}
+.lane-row:last-of-type { border-bottom: none; }
+.lane-row:hover { background: rgba(255,255,255,0.02); }
+
+.lane-row.lane-complete .lane-icon {
+    background: linear-gradient(135deg, rgba(22,163,74,0.35), rgba(22,163,74,0.15));
+    border-color: rgba(22,163,74,0.5);
+}
+.lane-row.lane-complete .lane-icon i { color: #4ADE80; }
+
+.lane-label {
+    color: rgba(255,255,255,0.85);
+    font-size: 1rem;
+    font-weight: 500;
+    min-width: 130px;
+}
+
+.lane-input-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.file-btn {
+    padding: 7px 18px;
+    background: rgba(37,99,235,0.15);
+    border: 1px solid rgba(37,99,235,0.4);
+    border-radius: 6px;
+    color: #93C5FD;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, border-color 0.2s;
+}
+.file-btn:hover {
+    background: rgba(37,99,235,0.28);
+    border-color: rgba(37,99,235,0.6);
+}
+
+.file-name {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.9rem;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-name.selected { color: #4ADE80; font-weight: 500; }
+
+input[type="file"] { display: none; }
+
+.lane-icon {
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+.lane-icon i { color: rgba(255,255,255,0.5); transition: color 0.2s; }
+
+.upload-btn-wrapper {
+    margin-top: 1.5rem;
+}
+
+.btn-upload-start {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(90deg, #2563EB, #16A34A);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 28px rgba(37,99,235,0.3);
+}
+.btn-upload-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(37,99,235,0.45);
+}
+.btn-upload-start:active { transform: translateY(0); }
+
+.validation-hint {
+    text-align: center;
+    color: rgba(255,255,255,0.35);
+    font-size: 0.8rem;
+    margin-top: 0.8rem;
+}
+.validation-hint i { color: #3B82F6; margin-right: 4px; }
+
+.alert-danger {
+    background: rgba(220,38,38,0.15);
+    border: 1px solid rgba(220,38,38,0.4);
+    color: #FCA5A5;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    width: 100%;
+    max-width: 860px;
+}
+{% endblock %}
+
+{% block content %}
+<div class="upload-page">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            {% if category == 'danger' %}
+                <div class="alert-danger"><i class="fas fa-exclamation-triangle"></i> {{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
+
+    <div class="upload-header">
+        <div class="upload-header-icon">
+            <i class="fas fa-cloud-upload-alt"></i>
+        </div>
+        <h1>Upload Lane Videos</h1>
+        <p>Please upload one video file for each of the four lanes.</p>
+    </div>
+
+    <form class="upload-form" method="POST" action="{{ url_for('upload.upload') }}" enctype="multipart/form-data">
+        {% for i in range(1, 5) %}
+        <div class="lane-row" id="row{{ i }}">
+            <div class="lane-icon" id="icon{{ i }}">
+                <i class="fas fa-video"></i>
+            </div>
+            <span class="lane-label">Lane {{ i }} Video:</span>
+            <div class="lane-input-wrapper">
+                <label class="file-btn" for="lane{{ i }}">
+                    Choose File
+                </label>
+                <span class="file-name" id="name{{ i }}">No file chosen</span>
+                <input type="file" id="lane{{ i }}" name="lane{{ i }}"
+                       accept=".mp4,.avi,.mov,.mkv"
+                       onchange="updateFileName({{ i }}, this)">
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="upload-btn-wrapper">
+            <button type="submit" class="btn-upload-start">
+                <i class="fas fa-upload"></i> Upload and Start
+            </button>
+            <p class="validation-hint"><i class="fas fa-circle-info"></i>Supported formats: .mp4, .avi, .mov, .mkv — All 4 lanes required</p>
+        </div>
+    </form>
+</div>
+
+<script>
+function updateFileName(idx, input) {
+    const nameEl = document.getElementById('name' + idx);
+    const rowEl = document.getElementById('row' + idx);
+    const iconEl = document.getElementById('icon' + idx).querySelector('i');
+
+    if (input.files && input.files[0]) {
+        nameEl.textContent = input.files[0].name;
+        nameEl.classList.add('selected');
+        rowEl.classList.add('lane-complete');
+        iconEl.classList.remove('fa-video');
+        iconEl.classList.add('fa-circle-check');
+    } else {
+        nameEl.textContent = 'No file chosen';
+        nameEl.classList.remove('selected');
+        rowEl.classList.remove('lane-complete');
+        iconEl.classList.remove('fa-circle-check');
+        iconEl.classList.add('fa-video');
+    }
+}
+</script>
+{% endblock %}

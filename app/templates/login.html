@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Intelligent Traffic Management System</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top navbar */
+        .navbar {
+            background: rgba(10,25,41,0.9);
+            backdrop-filter: blur(10px);
+            padding: 0 2rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .navbar-brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 2px;
+        }
+        .navbar-brand i { color: #3B82F6; margin-right: 8px; }
+        .navbar-title { font-size: 0.9rem; color: rgba(255,255,255,0.6); }
+
+        /* Hero section - navy/blue with red and green accents */
+        .hero {
+            background: linear-gradient(135deg, #0A1929 0%, #1B3A5C 45%, #0A1929 100%);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 70%);
+            top: -150px; right: -150px;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(220,38,38,0.12) 0%, transparent 70%);
+            bottom: -100px; left: -100px;
+            pointer-events: none;
+        }
+
+        .hero-icon {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, #2563EB, #16A34A);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 12px 35px rgba(37,99,235,0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 800;
+            color: white;
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.6);
+            text-align: center;
+            max-width: 540px;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Login card - dark glass panel with blue/red/green accents */
+        .login-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 2.5rem 2.2rem;
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            z-index: 5;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+            backdrop-filter: blur(8px);
+        }
+
+        .login-card h2 {
+            color: white;
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 0.4rem;
+        }
+
+        .login-card .login-sub {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group { margin-bottom: 1.2rem; }
+
+        .form-label {
+            display: block;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .form-label i { color: #3B82F6; margin-right: 6px; width: 14px; }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .form-control::placeholder { color: rgba(255,255,255,0.35); }
+        .form-control:focus {
+            border-color: #2563EB;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #2563EB, #16A34A);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.8rem;
+            letter-spacing: 0.5px;
+            transition: all 0.25s;
+            box-shadow: 0 10px 25px rgba(37,99,235,0.3);
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 32px rgba(37,99,235,0.45);
+        }
+        .btn-login:active { transform: translateY(0); }
+
+        .alert-danger {
+            background: rgba(220,38,38,0.15);
+            border: 1px solid rgba(220,38,38,0.4);
+            color: #FCA5A5;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-note {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: rgba(255,255,255,0.35);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+    <nav class="navbar">
+        <span class="navbar-brand"><i class="fas fa-traffic-light"></i>ITMS</span>
+        <span class="navbar-title">Intelligent Traffic Management System</span>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-icon">
+            <i class="fas fa-traffic-light"></i>
+        </div>
+        <h1 class="hero-title">Intelligent Traffic Management System</h1>
+        <p class="hero-subtitle">
+            Using Deep Learning and YOLOv8 to optimize traffic flow, prioritize emergency vehicles, and provide detailed analytics.
+        </p>
+
+        <div class="login-card">
+            <h2>Admin Login</h2>
+            <p class="login-sub">Sign in to access the control dashboard</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    {% if category == 'danger' %}
+                        <div class="alert-danger"><i class="fas fa-exclamation-circle"></i> {{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('auth.login') }}">
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-user"></i>Username</label>
+                    <input type="text" name="username" class="form-control" placeholder="traffic-admin" autocomplete="username" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-lock"></i>Password</label>
+                    <input type="password" name="password" class="form-control" placeholder="••••••••" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <p class="footer-note">Authorized personnel only</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

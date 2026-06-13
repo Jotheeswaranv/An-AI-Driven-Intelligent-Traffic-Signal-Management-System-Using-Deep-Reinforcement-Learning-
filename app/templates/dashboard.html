@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_styles %}
+.dashboard-hero {
+    background: linear-gradient(135deg, #0A1929 0%, #1B3A5C 50%, #0A1929 100%);
+    min-height: calc(100vh - 56px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+.dashboard-hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(220,38,38,0.15) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+}
+.dashboard-hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(22,163,74,0.12) 0%, transparent 70%);
+    bottom: -50px; left: -50px;
+    pointer-events: none;
+}
+
+.dashboard-content {
+    text-align: center;
+    max-width: 700px;
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-icon {
+    width: 90px; height: 90px;
+    background: linear-gradient(135deg, #2563EB, #DC2626);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: white;
+    margin: 0 auto 2rem;
+    box-shadow: 0 15px 40px rgba(37,99,235,0.4);
+}
+
+.dashboard-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.dashboard-subtitle {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+}
+
+.stats-row {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    padding: 1.2rem 1.8rem;
+    min-width: 140px;
+    transition: transform 0.2s, border-color 0.2s;
+}
+.stat-card:hover { transform: translateY(-3px); border-color: rgba(37,99,235,0.4); }
+.stat-card .stat-icon {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: #3B82F6;
+}
+.stat-card:nth-child(2) .stat-icon { color: #DC2626; }
+.stat-card:nth-child(3) .stat-icon { color: #16A34A; }
+.stat-card:nth-child(4) .stat-icon { color: #3B82F6; }
+.stat-card .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; }
+.stat-card .stat-value { font-size: 1.5rem; font-weight: 700; color: white; }
+
+.btn-start {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 16px 42px;
+    background: linear-gradient(90deg, #2563EB, #DC2626);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px rgba(37,99,235,0.4);
+    letter-spacing: 0.5px;
+}
+.btn-start:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(220,38,38,0.5);
+    color: white;
+    text-decoration: none;
+}
+
+.features-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.feature-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+}
+.feature-chip i { color: #16A34A; }
+.feature-chip:nth-child(2) i { color: #DC2626; }
+.feature-chip:nth-child(3) i { color: #3B82F6; }
+.feature-chip:nth-child(4) i { color: #16A34A; }
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-hero">
+    <div class="dashboard-content">
+        <div class="dashboard-icon">
+            <i class="fas fa-traffic-light"></i>
+        </div>
+
+        <h1 class="dashboard-title">Traffic AI Dashboard</h1>
+        <p class="dashboard-subtitle">
+            Adaptive signal control powered by YOLOv8 deep learning.<br>
+            Upload 4 lane videos to begin real-time traffic analysis.
+        </p>
+
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-road"></i></div>
+                <div class="stat-value">4</div>
+                <div class="stat-label">Lanes</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-microchip"></i></div>
+                <div class="stat-value">YOLOv8</div>
+                <div class="stat-label">AI Model</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-ambulance"></i></div>
+                <div class="stat-value">Live</div>
+                <div class="stat-label">Emergency</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+                <div class="stat-value">Real-time</div>
+                <div class="stat-label">Analysis</div>
+            </div>
+        </div>
+
+        <a href="{{ url_for('upload.upload') }}" class="btn-start">
+            <i class="fas fa-play-circle"></i>
+            Start Project
+        </a>
+
+        <div class="features-row">
+            <span class="feature-chip"><i class="fas fa-car"></i> Vehicle Detection</span>
+            <span class="feature-chip"><i class="fas fa-ambulance"></i> Emergency Priority</span>
+            <span class="feature-chip"><i class="fas fa-chart-bar"></i> Density Analysis</span>
+            <span class="feature-chip"><i class="fas fa-bolt"></i> Parallel Processing</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

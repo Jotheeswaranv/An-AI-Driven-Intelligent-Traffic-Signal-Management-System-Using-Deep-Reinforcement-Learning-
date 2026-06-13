@@ -8,6 +8,7 @@
 An AI-powered, adaptive traffic signal control system that uses computer vision (**YOLOv8**) to dynamically optimize intersection green light timings based on real-time vehicle density and emergency prioritization.
 
 ---
+![image alt](https://github.com/Jotheeswaranv/An-AI-Driven-Intelligent-Traffic-Signal-Management-System-Using-Deep-Reinforcement-Learning-/blob/c2440f005df795c10434ad09e678b5930c8492f7/cover_image.png)
 
 ## 🌟 Key Features
 
